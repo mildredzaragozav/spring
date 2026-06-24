@@ -10,7 +10,8 @@ The application is available at: http://localhost:8080/graphiql
 
 Using below query, you should see a response like this:
 
-`query bookDetails {
+```
+query bookDetails {
   bookById(id: "book-1") {
     id
     name
@@ -19,6 +20,7 @@ Using below query, you should see a response like this:
       lastName
     }
   }
-}`
+}
+```
 
 ![img.png](img.png)
