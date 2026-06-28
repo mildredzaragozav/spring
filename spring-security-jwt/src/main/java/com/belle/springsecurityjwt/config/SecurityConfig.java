@@ -1,5 +1,6 @@
 package com.belle.springsecurityjwt.config;
 
+import com.belle.springsecurityjwt.util.JwtAuthenticationFilter;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

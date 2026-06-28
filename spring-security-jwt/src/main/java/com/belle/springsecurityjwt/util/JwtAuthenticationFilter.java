@@ -1,7 +1,6 @@
-package com.belle.springsecurityjwt.config;
+package com.belle.springsecurityjwt.util;
 
 import com.belle.springsecurityjwt.service.CustomUserDetailsService;
-import com.belle.springsecurityjwt.util.JwtUtil;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -21,6 +20,7 @@ import java.io.IOException;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final CustomUserDetailsService userDetailsService;
+    private final JwtUtil jwtUtil;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -28,15 +28,14 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String username = null;
         String token = null;
 
-        if (header != null && header.startsWith("Bearer")) {
+        if (header != null && header.startsWith("Bearer ")) {
             token = header.substring(7);
-            username = JwtUtil.extractUsername(token);
+            username = jwtUtil.extractUsername(token);
         }
 
-        System.out.println("Validando token -> llamando a userDetailsService: username=" + username);
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-            if (JwtUtil.validateToken(token, userDetails)) {
+            if (jwtUtil.validateToken(token, userDetails)) {
                 UsernamePasswordAuthenticationToken authToken =
                         new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                 authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
