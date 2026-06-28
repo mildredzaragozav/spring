@@ -2,19 +2,15 @@ package com.belle.springsecurityjwt.util;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Service;
-
 import javax.crypto.SecretKey;
 import java.util.Date;
 
-@Service
 public class JwtUtil {
 
-    private final SecretKey secretKey = Jwts.SIG.HS256.key().build();
+    private static final SecretKey secretKey = Jwts.SIG.HS256.key().build();
 
-    public String generateToken(UserDetails user) {
+    public static String generateToken(UserDetails user) {
         return Jwts.builder()
                 .subject(user.getUsername())
                 .claim("roles", user.getAuthorities())
@@ -24,7 +20,7 @@ public class JwtUtil {
                 .compact();
     }
 
-    public Claims extractClaims(String token) {
+    public static Claims extractClaims(String token) {
         return Jwts.parser()
                 .verifyWith(secretKey)
                 .build()
@@ -32,19 +28,19 @@ public class JwtUtil {
                 .getPayload();
     }
 
-    public Boolean validateToken(String token, UserDetails userDetails) {
+    public static Boolean validateToken(String token, UserDetails userDetails) {
         return (extractUsername(token).equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
 
-    private Boolean isTokenExpired(String token) {
+    private static Boolean isTokenExpired(String token) {
         return extractExpiration(token).before(new Date());
     }
 
-    public String extractUsername(String token) {
+    public static String extractUsername(String token) {
         return extractClaims(token).getSubject();
     }
 
-    public Date extractExpiration(String token) {
+    public static Date extractExpiration(String token) {
         return extractClaims(token).getExpiration();
     }
 
