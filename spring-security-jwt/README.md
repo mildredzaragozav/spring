@@ -5,7 +5,7 @@ This repository contains an implementation of Spring Security with JWT to protec
 Use Postman or Insomnia for below steps.
 
 1. Hit the registration endpoint:
-    - POST Request to: http://localhost:8080/api/v1/auth/register
+    - POST Request to: http://localhost:8080/api/v1/login/register
     - Body (JSON format):
    ```
        {
@@ -16,7 +16,7 @@ Use Postman or Insomnia for below steps.
     - Expected response: 200 OK - "User registered successfully"
 
 2. Hit the login endpoint:
-    - POST Request to: http://localhost:8080/api/v1/auth/login
+    - POST Request to: http://localhost:8080/api/v1/login
     - Body (JSON format):
      ``` 
 	      {
