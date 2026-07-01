@@ -1,4 +1,4 @@
-package com.belle.springsecurity.config;
+package com.belle.springsecurity.controller;
 
 import com.belle.springsecurity.dto.ProductRequest;
 import org.springframework.web.bind.annotation.*;
