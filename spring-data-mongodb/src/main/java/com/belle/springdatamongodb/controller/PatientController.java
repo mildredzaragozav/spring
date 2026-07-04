@@ -38,4 +38,9 @@ public class PatientController {
         return ResponseEntity.ok(patientService.savePatient(patientRequest));
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Boolean> deletePatient(@PathVariable String id) {
+        return ResponseEntity.ok(patientService.deletePatient(id));
+    }
+
 }

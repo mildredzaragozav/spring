@@ -39,5 +39,9 @@ public class PatientService {
         return patientRepository.save(newPatient);
     }
 
+    public boolean deletePatient(String id) {
+        patientRepository.deleteById(id);
+        return true;
+    }
 
 }
