@@ -4,6 +4,7 @@ import com.belle.springdatamongodb.model.Patient;
 import com.belle.springdatamongodb.model.PatientRequest;
 import com.belle.springdatamongodb.repository.PatientRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 
@@ -20,14 +21,6 @@ public class PatientService {
         return patientRepository.findAll();
     }
 
-    public List<Patient> getPatientByName(String name) {
-        return patientRepository.findByName(name);
-    }
-
-    public List<Patient> getPatientsByGender(String gender) {
-        return patientRepository.findAllByGender(gender);
-    }
-
     public Long getTotalPatients() {
         return patientRepository.count();
     }
@@ -42,6 +35,18 @@ public class PatientService {
     public boolean deletePatient(String id) {
         patientRepository.deleteById(id);
         return true;
+    }
+
+    public List<Patient> search(String name, String gender) {
+        if (StringUtils.hasText(name) && StringUtils.hasText(gender)) {
+            patientRepository.searchByNameAndGender(name, gender);
+        } else if (StringUtils.hasText(name)) {
+            return patientRepository.findByName(name);
+        } else if (StringUtils.hasText(gender)) {
+            return patientRepository.findAllByGender(gender);
+        }
+
+        return null;
     }
 
 }

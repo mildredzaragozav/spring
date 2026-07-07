@@ -23,14 +23,17 @@ public class PatientController {
         return ResponseEntity.ok(patientService.getAllPatients());
     }
 
-    @GetMapping("/{name}")
-    public ResponseEntity<List<Patient>> getPatientByName(@PathVariable String name) {
-        return ResponseEntity.ok(patientService.getPatientByName(name));
-    }
-
     @GetMapping("/total")
     public ResponseEntity<Long> getTotalPatients() {
         return ResponseEntity.ok(patientService.getTotalPatients());
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<Patient>> search(
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String gender
+    ) {
+        return ResponseEntity.ok(patientService.search(name, gender));
     }
 
     @PostMapping
