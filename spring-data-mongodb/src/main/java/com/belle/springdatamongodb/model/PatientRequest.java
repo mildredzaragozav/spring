@@ -1,4 +1,7 @@
 package com.belle.springdatamongodb.model;
 
-public record PatientRequest(String name, String gender) {
+
+import jakarta.validation.constraints.NotBlank;
+
+public record PatientRequest(@NotBlank String name, String gender) {
 }

@@ -3,6 +3,7 @@ package com.belle.springdatamongodb.controller;
 import com.belle.springdatamongodb.model.Patient;
 import com.belle.springdatamongodb.model.PatientRequest;
 import com.belle.springdatamongodb.service.PatientService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,7 +38,7 @@ public class PatientController {
     }
 
     @PostMapping
-    public ResponseEntity<Patient> createPatient(@RequestBody PatientRequest patientRequest) {
+    public ResponseEntity<Patient> createPatient(@Valid @RequestBody PatientRequest patientRequest) {
         return ResponseEntity.ok(patientService.savePatient(patientRequest));
     }
 
@@ -45,5 +46,6 @@ public class PatientController {
     public ResponseEntity<Boolean> deletePatient(@PathVariable String id) {
         return ResponseEntity.ok(patientService.deletePatient(id));
     }
+
 
 }
