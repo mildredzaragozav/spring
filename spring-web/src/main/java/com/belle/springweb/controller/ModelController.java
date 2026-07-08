@@ -4,6 +4,12 @@ import com.belle.springweb.dto.ModelDTO;
 import com.belle.springweb.model.Model;
 import com.belle.springweb.service.ModelService;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PagedResourcesAssembler;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.PagedModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,6 +25,17 @@ public class ModelController {
     @GetMapping
     public ResponseEntity<List<Model>> getModels() {
         return ResponseEntity.ok(modelService.getAll());
+    }
+
+    @GetMapping("/paginated")
+    public ResponseEntity<PagedModel<EntityModel<Model>>> getModelsPaginated(
+            @RequestParam(defaultValue = "0") int page, // page number (0-based)
+            @RequestParam(defaultValue = "3") int size, // page size
+            PagedResourcesAssembler<Model> assembler) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Model> models = modelService.getAll(pageable);
+
+        return ResponseEntity.ok(assembler.toModel(models));
     }
 
     @GetMapping("/total")

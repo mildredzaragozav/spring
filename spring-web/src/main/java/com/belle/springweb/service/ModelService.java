@@ -4,6 +4,8 @@ import com.belle.springweb.dto.ModelDTO;
 import com.belle.springweb.model.Model;
 import com.belle.springweb.repository.ModelRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,6 +18,10 @@ public class ModelService {
 
     public List<Model> getAll() {
         return modelRepository.findAll();
+    }
+
+    public Page<Model> getAll(Pageable pageable) {
+        return modelRepository.findAll(pageable);
     }
 
     public Long getTotal() {
