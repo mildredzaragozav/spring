@@ -1,6 +1,7 @@
 package com.belle.springdatamongodb.service;
 
 import com.belle.springdatamongodb.model.Patient;
+import com.belle.springdatamongodb.model.PatientPersonalInformation;
 import com.belle.springdatamongodb.model.PatientRequest;
 import com.belle.springdatamongodb.repository.PatientRepository;
 import org.springframework.stereotype.Service;
@@ -26,9 +27,15 @@ public class PatientService {
     }
 
     public Patient savePatient(PatientRequest patientRequest) {
-        Patient newPatient = new Patient();
-        newPatient.setName(patientRequest.name());
-        newPatient.setGender(patientRequest.gender());
+        PatientPersonalInformation personalInformation = PatientPersonalInformation
+                .builder()
+                .fullName(patientRequest.name())
+                .dateOfBirth(patientRequest.dateOfBirth())
+                .gender(patientRequest.gender())
+                .maritalStatus(patientRequest.maritalStatus())
+                .build();
+        Patient newPatient = Patient.builder().personalInformation(personalInformation).build();
+
         return patientRepository.save(newPatient);
     }
 
@@ -37,14 +44,18 @@ public class PatientService {
         return true;
     }
 
+    /* not available yet*/
     public List<Patient> search(String name, String gender) {
-        if (StringUtils.hasText(name) && StringUtils.hasText(gender)) {
-            patientRepository.searchByNameAndGender(name, gender);
-        } else if (StringUtils.hasText(name)) {
-            return patientRepository.findByName(name);
-        } else if (StringUtils.hasText(gender)) {
-            return patientRepository.findAllByGender(gender);
+        //if (StringUtils.hasText(name) && StringUtils.hasText(gender)) {
+        //    patientRepository.searchByNameAndGender(name, gender);
+        //} else
+        if (StringUtils.hasText(name)) {
+            return patientRepository.findByPersonalInformation_FullNameContainingIgnoreCase(name);
         }
+
+        /*else if (StringUtils.hasText(gender)) {
+            return patientRepository.findAllByGender(gender);
+        } */
 
         return null;
     }
