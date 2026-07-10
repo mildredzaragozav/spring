@@ -2,7 +2,7 @@ package com.belle.springweb.controller;
 
 import com.belle.springweb.dto.ModelDTO;
 import com.belle.springweb.model.Model;
-import com.belle.springweb.service.ModelService;
+import com.belle.springweb.service.IModelService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -20,7 +20,7 @@ import java.util.Optional;
 @RequestMapping("/api/v1/models")
 @AllArgsConstructor
 public class ModelController {
-    private final ModelService modelService;
+    private final IModelService modelService;
 
     @GetMapping
     public ResponseEntity<List<Model>> getModels() {
