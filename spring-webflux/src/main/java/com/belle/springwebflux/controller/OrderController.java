@@ -35,12 +35,12 @@ public class OrderController {
                 .defaultIfEmpty(ResponseEntity.notFound().build());
     }
 
-    @GetMapping("/product/{productId}")
+    @GetMapping(value = "/product/{productId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Flux<Order> getOrdersByProductId(@PathVariable String productId) {
         return orderService.getOrdersByProductId(productId);
     }
 
-    @GetMapping(value = "/stream", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    @GetMapping(value = "/stream", produces = MediaType.TEXT_EVENT_STREAM_VALUE)//default output format: produces=MediaType.APPLICATION_JSON_VALUE
     public Flux<Order> streamOrderUpdates() {
         return orderService.streamOrderUpdates();
     }
