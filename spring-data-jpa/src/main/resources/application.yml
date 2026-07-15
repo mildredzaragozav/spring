@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: spring-data-jpa
+  profiles:
+    active: dev
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    show-sql: true
+
+   # spring.application.name=spring-data-jpa
+   # spring.profiles.active=dev
+   # spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+
+    ###Define your own
+    # spring.datasource.url=
+    # spring.datasource.username=
+    # spring.datasource.password=
