@@ -3,9 +3,10 @@ package com.belle.springdatajpa.service;
 import com.belle.springdatajpa.dto.TransferDTO;
 import com.belle.springdatajpa.model.BankAccount;
 import com.belle.springdatajpa.repository.BankAccountRepository;
-import jakarta.transaction.Transactional;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
