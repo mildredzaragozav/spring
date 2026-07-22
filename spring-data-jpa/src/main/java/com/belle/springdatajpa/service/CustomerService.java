@@ -4,6 +4,7 @@ import com.belle.springdatajpa.exception.UniqueConstraintException;
 import com.belle.springdatajpa.model.Customer;
 import com.belle.springdatajpa.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -39,5 +40,15 @@ public class CustomerService {
         LocalDate today = LocalDate.now();
         List<Customer> list1 = customerRepository.findBySubscriptionEndsOnBetween(today, today.plusMonths(1));
         return customerRepository.findBySubscriptionEndsOnBetween(start, end);
+    }
+
+    public List<Customer> sortCustomerByRegistrationDateDesc() {
+        Sort sortByRegistrationDate = Sort.by("isSubscriptionActive")
+                .and(Sort.by("registrationDate").descending());
+        return (List<Customer>) customerRepository.findAll(sortByRegistrationDate);
+    }
+
+    public List<Customer> findAll() {
+        return (List<Customer>) customerRepository.findAll();
     }
 }
