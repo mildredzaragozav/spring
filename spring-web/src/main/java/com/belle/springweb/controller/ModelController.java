@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.PagedModel;
@@ -32,7 +33,7 @@ public class ModelController {
             @RequestParam(defaultValue = "0") int page, // page number (0-based)
             @RequestParam(defaultValue = "3") int size, // page size
             PagedResourcesAssembler<Model> assembler) {
-        Pageable pageable = PageRequest.of(page, size);
+        Pageable pageable = PageRequest.of(page, size, Sort.by("name").descending());
         Page<Model> models = modelService.getAll(pageable);
 
         return ResponseEntity.ok(assembler.toModel(models));
