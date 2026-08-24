@@ -1,18 +1,24 @@
 package com.belle.springsecurity.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class Controller {
     @GetMapping("/open")
     public String getOpen() {
-        return "OPEN";
+        return "Access to 'GET /open' granted";
     }
 
-    @GetMapping("/closed")
+    @PostMapping("/open")
+    public String postOpen() {
+        return "Access to 'POST /open' granted";
+    }
+
+    @GetMapping("/authenticated")
     public String getClosed() {
-        return "CLOSED";
+        return "AUTHENTICATED";
     }
 
     @GetMapping("/special")

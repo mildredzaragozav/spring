@@ -22,31 +22,36 @@ public class SecurityConfig {
         return httpSecurity
                 .csrf(AbstractHttpConfigurer::disable) //Allows for POST, PUT, DELETE mappings with authentication
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/open").permitAll()
-                        .requestMatchers("/closed").authenticated()
-                        .requestMatchers("/products").authenticated()
-                        .requestMatchers(HttpMethod.POST, "/products").authenticated()
-                        .requestMatchers("/basic").hasAnyAuthority("user", "admin")
-                        .requestMatchers("/special").hasAuthority("admin"))
+                        .requestMatchers("/basic").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
+                        .requestMatchers("/special").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/open").hasAuthority("WRITE")
+                        .requestMatchers("/authenticated").authenticated()
+                        .requestMatchers(HttpMethod.GET, "/open").permitAll())
                 .httpBasic(Customizer.withDefaults())
                 .build();
     }
 
     @Bean
     public UserDetailsService userDetailsService(PasswordEncoder encoder) {
+        UserDetails user1 = User
+                .withUsername("user1")
+                .password(encoder.encode("user1"))
+                .authorities("WRITE")
+                .build();
+
         UserDetails dev = User
                 .withUsername("dev")
                 .password(encoder.encode("dev"))
-                .authorities("user")
+                .roles("USER")
                 .build();
 
         UserDetails admin = User
                 .withUsername("admin")
                 .password(encoder.encode("admin"))
-                .authorities("admin")
+                .authorities("ROLE_ADMIN", "WRITE")
                 .build();
 
-        return new InMemoryUserDetailsManager(dev, admin);
+        return new InMemoryUserDetailsManager(dev, admin, user1);
     }
 
     @Bean
