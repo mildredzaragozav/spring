@@ -24,6 +24,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/basic").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
                         .requestMatchers("/special").hasRole("ADMIN")
+                        .requestMatchers("/actuator/**").hasAuthority("MONITOR")
                         .requestMatchers(HttpMethod.POST, "/open").hasAuthority("WRITE")
                         .requestMatchers("/authenticated").authenticated()
                         .requestMatchers(HttpMethod.GET, "/open").permitAll()
@@ -52,7 +53,13 @@ public class SecurityConfig {
                 .authorities("ROLE_ADMIN", "WRITE")
                 .build();
 
-        return new InMemoryUserDetailsManager(dev, admin, user1);
+        UserDetails monitor = User
+                .withUsername("monitor")
+                .password(encoder.encode("monitor"))
+                .authorities("MONITOR")
+                .build();
+
+        return new InMemoryUserDetailsManager(dev, admin, user1, monitor);
     }
 
     @Bean
