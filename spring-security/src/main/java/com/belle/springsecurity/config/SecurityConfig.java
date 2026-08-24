@@ -26,7 +26,8 @@ public class SecurityConfig {
                         .requestMatchers("/special").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.POST, "/open").hasAuthority("WRITE")
                         .requestMatchers("/authenticated").authenticated()
-                        .requestMatchers(HttpMethod.GET, "/open").permitAll())
+                        .requestMatchers(HttpMethod.GET, "/open").permitAll()
+                        .anyRequest().denyAll())
                 .httpBasic(Customizer.withDefaults())
                 .build();
     }
