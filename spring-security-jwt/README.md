@@ -16,15 +16,9 @@ Use Postman or Insomnia for below steps.
     - Expected response: 200 OK - "User registered successfully"
 
 2. Hit the login endpoint:
-    - POST Request to: http://localhost:8080/api/v1/login
-    - Body (JSON format):
-     ``` 
-	      {
-	       	"username": "any",
-	       	"password": "any"
-	      }
-     ```
-    - Expected response: 200 OK - It will return a token similar to 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMSIsImlhdCI6MTc4MTY0NDY3NSwiZXhwIjoxNzgxNjgwNjc1fQ.AoJ4ec6MU-rf9U2WCZa4ZdDeJAudQb-_45hlDlP891U'
+    - POST Request to: http://localhost:8080/api/v1/login/token
+    - Select 'Auth' --> 'Basic' and use the same credentials as step 1.
+      - Expected response: 200 OK - It will return a token similar to 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMSIsImlhdCI6MTc4MTY0NDY3NSwiZXhwIjoxNzgxNjgwNjc1fQ.AoJ4ec6MU-rf9U2WCZa4ZdDeJAudQb-_45hlDlP891U'
 
 
 3. Hit the hello endpoint:
