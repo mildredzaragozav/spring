@@ -29,22 +29,6 @@ public class LoginController {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 
         return ResponseEntity.ok(jwtUtil.generateToken(userDetails));
+        /* See 'Notes' for past implementation. */
     }
-
-    /*@PostMapping
-    public ResponseEntity<String> loginUser(@RequestBody AuthenticationRequest user) {
-        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
-                user.username(),
-                user.password()
-        );
-
-        // Authentication and save to context.
-        Authentication authentication = authenticationManager.authenticate(token);
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-
-        // Extracts UserDetails without a second call to DB
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-
-        return ResponseEntity.ok(jwtUtil.generateToken(userDetails));
-    }*/
 }
