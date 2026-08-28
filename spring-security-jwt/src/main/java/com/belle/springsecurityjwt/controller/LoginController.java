@@ -1,6 +1,6 @@
 package com.belle.springsecurityjwt.controller;
 
-import com.belle.springsecurityjwt.model.AuthenticationRequest;
+import com.belle.springsecurityjwt.model.RegistrationRequest;
 import com.belle.springsecurityjwt.service.AppUserService;
 import com.belle.springsecurityjwt.util.JwtUtil;
 import lombok.AllArgsConstructor;
@@ -18,7 +18,7 @@ public class LoginController {
 
 
     @PostMapping("/register")
-    public ResponseEntity<String> registerUser(@RequestBody AuthenticationRequest user) {
+    public ResponseEntity<String> registerUser(@RequestBody RegistrationRequest user) {
         return appUserService.registerNewUser(user);
     }
 

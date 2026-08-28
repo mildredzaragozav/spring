@@ -1,6 +1,6 @@
 package com.belle.springsecurityjwt.service;
 
-import com.belle.springsecurityjwt.model.AuthenticationRequest;
+import com.belle.springsecurityjwt.model.RegistrationRequest;
 import com.belle.springsecurityjwt.model.AppUser;
 import com.belle.springsecurityjwt.repository.AppUserRepository;
 import lombok.AllArgsConstructor;
@@ -14,11 +14,11 @@ public class AppUserService {
     private final PasswordEncoder encoder;
     private final AppUserRepository appUserRepository;
 
-    public ResponseEntity<String> registerNewUser(AuthenticationRequest userRequest) {
+    public ResponseEntity<String> registerNewUser(RegistrationRequest registrationRequest) {
         AppUser user = AppUser.builder()
-                .username(userRequest.username())
-                .password(encoder.encode(userRequest.password()))
-                .authority(userRequest.authority())
+                .username(registrationRequest.username())
+                .password(encoder.encode(registrationRequest.password()))
+                .authority(registrationRequest.authority())
                 .build();
 
         appUserRepository.save(user);
