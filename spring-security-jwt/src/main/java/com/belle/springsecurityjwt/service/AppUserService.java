@@ -18,6 +18,7 @@ public class AppUserService {
         AppUser user = AppUser.builder()
                 .username(userRequest.username())
                 .password(encoder.encode(userRequest.password()))
+                .authority(userRequest.authority())
                 .build();
 
         appUserRepository.save(user);

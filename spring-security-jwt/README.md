@@ -10,7 +10,8 @@ Use Postman or Insomnia for below steps.
    ```
        {
            "username": "any",
-           "password": "any"
+           "password": "any",
+           "authority": "ROLE_USER" 
        }
    ```
     - Expected response: 200 OK - "User registered successfully"
