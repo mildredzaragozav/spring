@@ -1,11 +1,10 @@
 package com.belle.springsecurityjwt.controller;
 
 import com.belle.springsecurityjwt.model.AuthenticationRequest;
-import com.belle.springsecurityjwt.service.CustomUserService;
+import com.belle.springsecurityjwt.service.AppUserService;
 import com.belle.springsecurityjwt.util.JwtUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
@@ -14,14 +13,13 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/login")
 @AllArgsConstructor
 public class LoginController {
-    private final AuthenticationManager authenticationManager;
-    private final CustomUserService customUserService;
+    private final AppUserService appUserService;
     private final JwtUtil jwtUtil;
 
 
     @PostMapping("/register")
     public ResponseEntity<String> registerUser(@RequestBody AuthenticationRequest user) {
-        return customUserService.registerNewUser(user);
+        return appUserService.registerNewUser(user);
     }
 
     @PostMapping("/token")

@@ -1,7 +1,7 @@
 package com.belle.springsecurityjwt.service;
 
-import com.belle.springsecurityjwt.model.CustomUser;
-import com.belle.springsecurityjwt.repository.UserRepository;
+import com.belle.springsecurityjwt.model.AppUser;
+import com.belle.springsecurityjwt.repository.AppUserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,11 +14,11 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService {
 
-        private final UserRepository userRepository;
+        private final AppUserRepository appUserRepository;
 
         @Override
         public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-            CustomUser customUser = userRepository.findByUsername(username);
+            AppUser customUser = appUserRepository.findByUsername(username);
 
             if (customUser == null) {
                 throw new UsernameNotFoundException("User '" + username + "' not found.");
